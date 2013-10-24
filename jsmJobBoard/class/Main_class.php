@@ -30,6 +30,9 @@ class set {
 	
 	public function __construct(){
 		
+		//create the page for the plugin
+                register_activation_hook( __FILE__, 'create_page' );
+
 		//this is just an interesting way to get code into a post or a page might be usefull.
 		add_shortcode('testHtml', array($this, 'testShortCode'));
 		
@@ -83,6 +86,20 @@ class set {
 			$qv['post_type'] = array('post', 'job_posting');
 		return $qv;
 	}
+	
+	 // creates new page when the plugin is activated
+        public function create_page() {
+                 $my_page = array(
+                        'post_title' => 'Job Postings',
+                        'post_content' => 'This is were the new job posting will end up',
+                       	'post_status' => 'publish',
+                       	'post_type' => 'page',
+                        'post_author' => 2,
+                  );
+ 
+                 $post_id = wp_insert_post($my_page);
+         }
+
 	 
 	
 }
