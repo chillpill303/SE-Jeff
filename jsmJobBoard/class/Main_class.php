@@ -31,7 +31,7 @@ class set {
 	public function __construct(){
 		
 		//create the page for the plugin
-                register_activation_hook( __FILE__, 'create_page' );
+                register_activation_hook( __FILE__, array($this, 'create_page'));
 
 		//this is just an interesting way to get code into a post or a page might be usefull.
 		add_shortcode('testHtml', array($this, 'testShortCode'));
@@ -95,6 +95,7 @@ class set {
                        	'post_status' => 'publish',
                        	'post_type' => 'page',
                         'post_author' => 2,
+                        'post_date' => '2012-10-24 15:10:30'
                   );
  
                  $post_id = wp_insert_post($my_page);
