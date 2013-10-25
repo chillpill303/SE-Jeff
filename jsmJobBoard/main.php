@@ -28,7 +28,7 @@
 define('JSM_JOB', __FILE__);
 define('JSM_JOB_PATH', plugin_dir_path(__FILE__));
 
-require JSM_JOB_PATH . 'class/Main_class.php';
+require JSM_JOB_PATH . 'class/main_class.php';
 require JSM_JOB_PATH . 'class/admin_setting.php';
 
 //create the page for the plugin
