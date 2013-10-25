@@ -29,30 +29,13 @@
 class set {
 	
 	public function __construct(){
-		
-		//create the page for the plugin
-                register_activation_hook( __FILE__, array($this, 'create_page'));
 
-		//this is just an interesting way to get code into a post or a page might be usefull.
-		add_shortcode('testHtml', array($this, 'testShortCode'));
-		
 		//the action that creates the custom post type
 		add_action( 'init', array($this, 'create_post_type')); 
 		
+		//this should add the post to the feed but doesn't work
 		add_filter( 'request', array($this, 'add_cpt_to_feed'));
 		
-	}
-	
-	//table creation function we want wordpress to call this function when the admin installes the plugin.  Use the register_activation_hook() for that.
-	public function jal_install() {
-		global $wpdb;
-		$table_name = $wpdb->prefix . "adminJobBoard";
-	}
-	
-
-	//just testing out the shortcode when [testHtml] is placed in a post or page it prints out this.
-	public function testShortCode(){
-		echo '<h1>Jeff Job Board</h1><br /><p>Jobs are updated every day.</p>';
 	}
 	
 	//this function creats a custom post option in the admin menu called Job Posting
@@ -89,19 +72,30 @@ class set {
 	
 	 // creates new page when the plugin is activated
         public function create_page() {
-                 $my_page = array(
-                        'post_title' => 'Job Postings',
-                        'post_content' => 'This is were the new job posting will end up',
-                       	'post_status' => 'publish',
-                       	'post_type' => 'page',
-                        'post_author' => 2,
-                        'post_date' => '2012-10-24 15:10:30'
-                  );
- 
-                 $post_id = wp_insert_post($my_page);
-         }
-
+        	$page_title = 'Job Posting';
+        	
+        	$page = get_page_by_title($page_title);
+        	
+        	if (!$page) {
+	                 $my_page = array(
+	                        'post_title' => 'Job Postings',
+	                        'post_content' => 'This is were the new job posting will end up',
+	                       	'post_status' => 'publish',
+	                       	'post_type' => 'page',
+	                        'post_author' => 2,
+	                        'post_date' => '2012-10-24 15:10:30'
+	                  );
 	 
-	
+	                 $post_id = wp_insert_post($my_page);
+        	}
+         }
+         
+         // delete new page on removal of plugin deactiation
+         public function remove_plugin_page(){
+                    $page = get_page_by_title('Job Postings'); //do not change the title of page could be global variable
+    
+                    wp_delete_post($page->ID, true);
+            }
+
 }
 ?>
