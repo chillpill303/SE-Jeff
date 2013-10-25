@@ -31,6 +31,12 @@ define('JSM_JOB_PATH', plugin_dir_path(__FILE__));
 require JSM_JOB_PATH . 'class/Main_class.php';
 require JSM_JOB_PATH . 'class/admin_setting.php';
 
+//create the page for the plugin
+register_activation_hook( __FILE__, array('set', 'create_page'));
+
+//removes the page when plugin deactivated
+register_deactivation_hook( __FILE__, array('set', 'remove_plugin_page'));
+
 new set();
 new Admin_setting(); 
 ?>
