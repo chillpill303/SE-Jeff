@@ -1,8 +1,8 @@
-
 Great link for setting up admin settings:
 http://www.presscoders.com/2010/05/wordpress-settings-api-explained/
 
 Link for creating new page:
 http://wordpress.org/support/topic/how-do-i-create-a-new-page-with-the-plugin-im-building
 
-
+Settings API Explained
+http://www.presscoders.com/2010/05/wordpress-settings-api-explained/
