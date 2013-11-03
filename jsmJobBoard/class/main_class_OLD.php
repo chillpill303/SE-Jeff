@@ -36,6 +36,8 @@ class set {
 		//this should add the post to the feed but doesn't work
 		add_filter( 'request', array($this, 'add_cpt_to_feed'));
 		
+		
+		
 	}
 	
 	//this function creats a custom post option in the admin menu called Job Posting
