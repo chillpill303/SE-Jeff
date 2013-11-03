@@ -4,47 +4,55 @@
  *
  * Print posts of a Custom Post Type.
  */
+ 
+ /* for now this file must be put in the themes/twentythirteen directory or whichever theme your are using.  Because of restriction 
+ *by turing and other issues I can't figure out this is how is is done for now.
+ * Jeff Mattson 11/2/2013
+ */
+ 
 global $more; //for More...
-get_header(); ?>
+get_header(); 
 
-	
+?>
+
     <div id="container">
         <div id="content">
-        <?php 
+	<?php 
         $type = 'job_posting';
         $args = array (
-         'post_type' => $type,
-         'post_status' => 'publish',
-         'paged' => $paged,
-         'posts_per_page' => 10,
-         'ignore_sticky_posts'=> 1
-        );
+         	'post_type' => $type,
+         	'post_status' => 'publish',
+         	'paged' => $paged,
+         	'posts_per_page' => 10,
+         	'ignore_sticky_posts'=> 1
+        	);
+        	
         $temp = $wp_query; // assign ordinal query to temp variable for later use  
         $wp_query = null;
         $wp_query = new WP_Query($args); 
         if ( $wp_query->have_posts() ) :
             while ( $wp_query->have_posts() ) : $wp_query->the_post();
-
+            
 		$more = 0;//supposed to create the More... Does nothing as far as I can tell
                 echo '<span style="color:#5A5A5A; font-size:30px; text-decoration:underline;">'; 
                 the_title();
                 echo '</span>'; 
                 echo '<div class="entry-content" style="color:#5A5A5A;">';
-		?>
+	?>
 
 		<table>
 			<tr>
 				<th><span style="font-size:16px; font-weight:bold;">Job Description</span></th>
 			</tr>
 			<tr>
-				<td><?php the_content("More..."); ?> </td>
+				<td> <?php the_content("More..."); ?> </td>
 			</tr>
 			<tr>
 				<th><span style="font-size:16px; font-weight:bold;">Job Requirements</span></th>
 			</tr>
 			<tr>
 				<td> <?php echo str_replace("\n", '<br />', get_post_meta( $post->ID, 'job_requirements', true)); 
-?></td>		
+?> </td>		
 				</td>
 			</tr>
 		</table>
@@ -57,7 +65,7 @@ get_header(); ?>
 				<td><span style="font-size:16px; font-weight:bold;">Contact</span></td><td></td>
 			</tr>
                	</table>
-</div>
+	</div>
 <?php
             endwhile;
         else :
@@ -65,7 +73,7 @@ get_header(); ?>
             get_search_form();
         endif;
         $wp_query = $temp;
-        ?>
+?>
         </div><!-- #content -->
     </div><!-- #container -->
 
